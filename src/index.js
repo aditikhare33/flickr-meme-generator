@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import Query from './query'
+import Image from './image'
 
 ReactDOM.render(
   <div>
-    hey!
+    <Query />
+    <Image />
   </div>,
   document.getElementById('root')
 );
