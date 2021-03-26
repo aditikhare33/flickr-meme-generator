@@ -25,18 +25,17 @@ class Help extends React.Component {
         let helpMenu = []
         if (needHelp) {
             helpMenu.push(
-                <div class="center">
-                    <span class="instructions">
+                <div class="border">
                     HOW TO USE THE MEME GENERATOR 3000
-                    <button onClick={this.handleHelp} class="noBorder">
+                    <span class="instructions">
+                        <button onClick={this.handleHelp} class="noBorder">
                          <FontAwesomeIcon icon={faTimesCircle}/>
-                    </button>
-                    {<br/>} 
-                        <ol>
-                            <li> SEARCH FOR IMAGES {<br/>} </li>
-                            <li> DOUBLE CLICK TO SELECT AN IMAGE {<br/>}</li>
-                            <li> ADD TEXT TO THE TEXT BOX {<br/>}</li>
-                        </ol>
+                        </button>
+                        {<br/>} 
+                            1. SEARCH FOR IMAGES {<br/>} 
+                            2. DOUBLE CLICK TO SELECT AN IMAGE {<br/>}
+                            3. ADD TEXT TO THE TEXT BOX {<br/>}
+                            NOTE: you can move the text around by clicking and grabbing it!
                     </span>
                 </div>
             );
@@ -44,8 +43,7 @@ class Help extends React.Component {
             helpMenu.push(
                 <span class="center">
                     <button onClick={this.handleHelp} class="button">
-                        How to Use the Meme Generator 3000
-                        {/*<FontAwesomeIcon icon={//faQuestion} />*/}
+                         HOW TO USE THE MEME GENERATOR 3000
                 </button>
 
                 </span>

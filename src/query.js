@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
 class Query extends React.Component {
+    // bind member functions and set initial empty states
     constructor(props) {
         super(props);
 
@@ -12,6 +13,7 @@ class Query extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.fetchPics = this.fetchPics.bind(this);
+        this.handleDeselect = this.handleDeselect.bind(this);
 
         this.state = {
             curQuery: "",
@@ -22,73 +24,97 @@ class Query extends React.Component {
         };
     }
 
+    // queries flickr api according to page number and current query
     fetchPics(page_num) {
-        console.log("FETCHING");
-        let {curQuery} = this.state;
-        let FLICKR_API_KEY = "127eb5c6066070b6ef6203c9d9a89dd8"; // got from flickr api account webpage
-        const urlRoot = "https://api.flickr.com/services/rest/";
-        const method = "?method=flickr.photos.search";
-        const apikey = "&api_key="+ FLICKR_API_KEY;
-        const text = "&text=" + curQuery;
-        /*const tags =  "&tags=" + "meme"; */
-        const sort = "&sort=relevance"; 
-        const safe = "&safe_search=1"; // safe search is on
-        const format = "&per_page=12&format=json&nojsoncallback=1";
-        const page = "&page=" + page_num;
-        const url = urlRoot + method + apikey + sort + safe + page + text+ format;
-        console.log("querying this url:", url);
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) throw Error(response.statusText);
-                return response.json();
-            })
-            .then((j) =>{
-                console.log("IN DATA");
-                //loop through all pictures from search
-                let picArray = j.photos.photo.map((pic) => {
-                    //copied from flickr's documentation, get location of pictures
-                    var srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
-                    return(
-                        <span class="picture">
-                            <img 
-                                class="searchImg"
-                                alt={curQuery} 
-                                src={srcPath} 
-                                onDoubleClick={this.handleSelect}
-                            />
-                        </span>
-                    )
-                })
-                this.setState({ 
-                    pictures: picArray,
-                });
-            })
-            .then((error) => {
-                console.log("ERROR:", error);
-            })
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        console.log("inSubmit");
-        const {curQuery} = this.state.curQuery;
-        if (curQuery !== "") {
-            this.fetchPics(1);
-            let temp_query = curQuery;
+        if (this.state.curQuery !== undefined && this.state.curQuery !== "") {
             this.setState({
-                search: temp_query,
+                search: this.state.curQuery,
             });
-        }   
+
+            console.log("FETCHING");
+            console.log(this.state.curQuery);
+            console.log(this.state.search);
+
+            let {curQuery} = this.state;
+
+            let FLICKR_API_KEY = "127eb5c6066070b6ef6203c9d9a89dd8"; // got from flickr api account webpage
+
+            const urlRoot = "https://api.flickr.com/services/rest/";
+            const method = "?method=flickr.photos.search";
+            const apikey = "&api_key="+ FLICKR_API_KEY;
+            const text = "&text=" + curQuery;
+            /*const tags =  "&tags=" + "meme"; */
+            const sort = "&sort=relevance"; 
+            const safe = "&safe_search=1"; // safe search is on
+            const format = "&per_page=12&format=json&nojsoncallback=1";
+            const page = "&page=" + page_num;
+            const url = urlRoot + method + apikey + sort + safe + page + text+ format;
+
+            console.log("querying this url:", url);
+
+            fetch(url)
+                .then((response) => {
+                    if (!response.ok) throw Error(response.statusText);
+                    return response.json();
+                })
+                .then((j) =>{
+                    console.log("IN DATA");
+                    //loop through all pictures from search
+                    let picArray = j.photos.photo.map((pic) => {
+                        //copied from flickr's documentation, get location of pictures
+                        var srcPath = 'https://farm'+pic.farm+
+                                    '.staticflickr.com/'+pic.server+'/'
+                                    +pic.id+'_'+pic.secret+'.jpg';
+                        return(
+                            <span class="picture">
+                                <img 
+                                    class="searchImg"
+                                    alt={curQuery} 
+                                    src={srcPath} 
+                                    onDoubleClick={this.handleSelect}
+                                />
+                            </span>
+                        )
+                    })
+                    this.setState({ 
+                        pictures: picArray,
+                    });
+                })
+                .then((error) => {
+                    console.log("ERROR:", error);
+                })
+        } else {
+            this.setState({ 
+            pictures: [],
+            });
+        }
     }
 
-    handleChange(e) {
-        console.log("inChange"); 
+    // handles changes to the search bar's text input
+    handleChange(e) { 
         e.preventDefault();
         this.setState({
             curQuery: e.target.value,
         });
     }
 
+    // handles submit of query (updates pictures array that is diplayed)
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log("inSubmit");
+        const {curQuery} = this.state.curQuery;
+        console.log("curQuery", curQuery);
+        if (curQuery !== "") {
+            this.fetchPics(1);
+            let temp_query = curQuery;
+            console.log("temp_query", temp_query);
+            this.setState({
+                search: temp_query,
+            });
+        }   
+    }
+
+    // handles selection of image to make meme of upon double click
     handleSelect(e) {
         e.preventDefault();
         let src_path = e.target.getAttribute("src");
@@ -99,6 +125,17 @@ class Query extends React.Component {
         });
     }
 
+    // handle option go back to search page
+    handleDeselect(e) {
+        e.preventDefault();
+        this.setState({
+            selected: "",
+            selectionHappened: false,
+        });
+    }
+
+    // separate function to handle logic of what to render when, to reduce clutter in actual render function
+    // essentially: if no image selected, show search page, otherwise show selected image and text box
     renderHelper() {
         const {curQuery, pictures, selected, selectionHappened, search} = this.state;
         let output = [];
@@ -107,19 +144,24 @@ class Query extends React.Component {
             output.push(
                 <div>
                     <Image img={selected} />
+                    <button onClick={this.handleDeselect}>
+                        Go back to Search Page?
+                    </button>
                 </div>
             );
         } else {
             output.push(
                 <div>
+                    {<br/>} 
                     <div class="button">
                         <form onSubmit={this.handleSubmit}>
                             <input 
+                                class="input"
                                 type="text" 
                                 name="q" 
                                 onChange={this.handleChange} 
                                 value={curQuery}
-                                placeholder="Search..."
+                                placeholder="Search For Something..."
                             />
                             <button class="sideButton" onSubmit={this.handleSubmit}>
                                 <FontAwesomeIcon icon={faSearch}/> 
@@ -130,14 +172,18 @@ class Query extends React.Component {
             );
             if (pictures.length === 0) {
                 output.push(
-                    <div>
-                        Nothing To See Here, Yet 
+                    <div class = "centerVertical">
+                        Nothing To See Here... Yet {<br/>} 
+                        <img src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves" />
                     </div>
                 )
             } else {
                 output.push(
                     <div>
-                        Here are some pictures of {search}: {<br/>}
+                        <div class="align-left">
+                        {<br/>}
+                            Here are some pictures of your search: {<br/>}
+                        </div>
                         <div class="board">
                             {pictures}
                         </div>
@@ -149,6 +195,7 @@ class Query extends React.Component {
         return output;
     }
 
+    // render 
     render() {
         console.log(this.state);
         let output = this.renderHelper();

@@ -3,13 +3,27 @@ body {
   background-color:white;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size:25px;
-  color: rgb(42, 49, 55);
+  color:white;
   position: absolute;
   top: 5%; width: 100%;
   padding-left: 30px;
   padding-right: 30px;
+  text-align: center;
+  -webkit-text-stroke: 2px rgb(42, 49, 55);
+  zoom: 1.2;
+}
+button {
+  -webkit-text-stroke: 0px rgb(42, 49, 55);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+input {
+  border: 0px;
+}
+
+a[placeholder]{
+  -webkit-text-stroke: 0px rgb(42, 49, 55);
+}
 .memeText {
   -webkit-text-stroke: 2px rgb(42, 49, 55);
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -34,6 +48,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  zoom: 0.8;
 }
 
 .whiteFont {
@@ -42,10 +57,27 @@ body {
 
 .center {
   text-align: center;
+  margin: 0 auto;
+}
+
+.centerVertical {
+  padding-top: 7%;
+  font-size: 30px;
+}
+
+.align {
+  text-align: left;
 }
 
 .border {
   box-shadow: -2px 0 black , 0 2px black, 2px 0 black, 0 -2px black;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  text-align: left;
+  display: table;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .noBorder {
@@ -62,11 +94,23 @@ body {
 
 .instructions {
   font-size: 20px;
-  text-align: left;
+  color:rgb(42, 49, 55);
+  -webkit-text-stroke: 1px rgb(42, 49, 55);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-input {
-  border: 0px;
+.input {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 1px white;
+  -webkit-text-stroke: 0px rgb(42, 49, 55);
+  padding: 2px;
+  box-shadow: -0px 0white, 0 0px white, 0px 0 white, 0 -0px white;
+}
+
+.filled {
+  -webkit-text-stroke: 0px rgb(42, 49, 55);
+  font-size: 15px;
+  color:rgb(42, 49, 55);
 }
 
 .sideButton {
@@ -75,7 +119,7 @@ input {
   box-shadow: -2px 0 black , 0 0px white, 0px 0 white, 0 -0px white;
 }
 .button {
-  font-size:18px;
+  font-size:20px;
   color:rgb(42, 49, 55);
   width: fit-content;
   height: fit-content;
@@ -83,8 +127,12 @@ input {
   background-color: white;
   box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
   border-radius: 0px;
+  margin: 0 auto;
+  padding: 5px;
   border: 2px solid rgb(42, 49, 55);
+  margin-top: 5px;
 }
+
 
 button:hover {
   transition-duration: 0.4s;
