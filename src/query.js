@@ -226,7 +226,6 @@ class Query extends React.Component {
             searchScreen.push(this.renderPics());
         }
         return searchScreen;
-
     }
 
     renderSelection() {
