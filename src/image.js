@@ -17,6 +17,7 @@ class Image extends React.Component {
 
     }
 
+    //handle Change to text box
     handleChange(e) {
         console.log("inChange"); 
         e.preventDefault();
@@ -25,6 +26,8 @@ class Image extends React.Component {
         });
     }
 
+
+    //render image and text box
     render() {
         const {curText,image_url} = this.state;
 

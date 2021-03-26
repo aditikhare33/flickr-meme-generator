@@ -29,6 +29,7 @@ class Query extends React.Component {
         };
     }
 
+    //create the url used for querying
     createUrl(page_num) {
         let {curQuery} = this.state;
 
@@ -117,6 +118,7 @@ class Query extends React.Component {
         });
     }
 
+    //increment pageNum
     handlePaginationPlus() {
         let tempCurPage = this.state.curPage;
 
@@ -128,6 +130,7 @@ class Query extends React.Component {
         });
     }
 
+    //decrement pageNum
     handlePaginationMinus() {
         let tempCurPage = this.state.curPage;
 
