@@ -42,7 +42,6 @@ class Query extends React.Component {
                 })
                 .then((j) =>{
                     console.log("IN DATA");
-                    alert(JSON.stringify(j));
                     //loop through all pictures from search
                     let picArray = j.photos.photo.map((pic) => {
                         //copied from flickr's documentation, get location of pictures
@@ -50,9 +49,10 @@ class Query extends React.Component {
                         return(
                             <span class="picture">
                                 <img 
+                                    class="searchImg"
                                     alt={curQuery} 
                                     src={srcPath} 
-                                    onClick={this.handleSelect}
+                                    onDoubleClick={this.handleSelect}
                                 />
                             </span>
                         )
@@ -87,10 +87,16 @@ class Query extends React.Component {
         console.log(this.state);
         return (
             <div>
-                <div>
+                <div class="button">
                     <form onSubmit={this.handleSubmit}>
-                        <input type="text" name="q" onChange={this.handleChange} value={curQuery}/>
-                        <button onSubmit={this.handleSubmit}>
+                        <input 
+                            type="text" 
+                            name="q" 
+                            onChange={this.handleChange} 
+                            value={curQuery}
+                            placeholder="Search..."
+                        />
+                        <button class="searchButton" onSubmit={this.handleSubmit}>
                             <FontAwesomeIcon icon={faSearch}/> 
                         </button>
                     </form>
