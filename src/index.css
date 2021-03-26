@@ -30,6 +30,10 @@ input {
 
 textArea {
   border: 0px;
+  resize:none;
+}
+
+textarea:focus, input:focus{
   resize:vertical;
 }
 
