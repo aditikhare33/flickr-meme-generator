@@ -39,16 +39,18 @@ class Image extends React.Component {
                     <img src = {image_url} alt="selected_img" class="memePic"/>
                 </div>
 
-                <textarea
-                     name="Text1" 
-                     cols="40"
-                     rows="3"
-                     class="memeTextCaption"
-                     onChange={this.handleChange} 
-                     value={curText}
-                     placeholder="type your text here"
-                     >
-                </textarea>
+                <div class="fixedText">
+                    <textarea
+                        name="Text1" 
+                        cols="40"
+                        rows="3"
+                        class="memeTextCaption"
+                        onChange={this.handleChange} 
+                        value={curText}
+                        placeholder="type your text here"
+                        >
+                    </textarea>
+                </div>
             </div>
         );
     }

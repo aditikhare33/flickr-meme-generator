@@ -23,9 +23,14 @@ input {
   border: 0px;
 }
 
+.fixedText {
+  margin: auto;
+  text-align: center;
+}
 
 textArea {
   border: 0px;
+  resize:vertical;
 }
 
 .memeText {
