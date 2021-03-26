@@ -52,7 +52,9 @@ class Query extends React.Component {
     //page_num is a parameter here even tho its part of the state bc of the use of setTimeout
     fetchPics(page_num) {
         if (this.state.curQuery !== undefined && this.state.curQuery !== "") {
-            this.setState({ search: this.state.curQuery,});
+            this.setState({ 
+                search: this.state.curQuery,
+            });
             let {curQuery} = this.state;
             let url = this.createUrl(page_num);
             fetch(url)
@@ -95,6 +97,7 @@ class Query extends React.Component {
             let temp_query = curQuery;
             this.setState({
                 search: temp_query,
+                curPage: 1,
             });
         }   
     }
@@ -260,6 +263,7 @@ class Query extends React.Component {
 
     // render 
     render() {
+        console.log(this.state);
         let output = this.renderHelper();
         return (
             <div>  {output}  </div>
