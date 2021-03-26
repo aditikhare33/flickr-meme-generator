@@ -38,7 +38,6 @@ class Query extends React.Component {
         const method = "?method=flickr.photos.search";
         const apikey = "&api_key="+ FLICKR_API_KEY;
         const text = "&text=" + curQuery;
-        /*const tags =  "&tags=" + "meme"; */
         const sort = "&sort=relevance"; 
         const safe = "&safe_search=1"; // safe search is on
         const format = "&per_page=12&format=json&nojsoncallback=1";
@@ -52,43 +51,28 @@ class Query extends React.Component {
     //page_num is a parameter here even tho its part of the state bc of the use of setTimeout
     fetchPics(page_num) {
         if (this.state.curQuery !== undefined && this.state.curQuery !== "") {
-            this.setState({
-                search: this.state.curQuery,
-            });
-
+            this.setState({ search: this.state.curQuery,});
             let {curQuery} = this.state;
             let url = this.createUrl(page_num);
-            console.log("querying this url", url);
-
             fetch(url)
             .then((response) => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json();
-            })
-            .then((j) => {
+            }).then((j) => {
                 //loop through all pictures from search
                 let picArray = j.photos.photo.map((pic) => {
                     //copied from flickr's documentation, get location of pictures
-                    var srcPath = 'https://farm'+pic.farm+ '.staticflickr.com/'
-                                  +pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
+                    var srcPath = 'https://farm'+pic.farm+ '.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
                     return(
                         <span class="picture">
-                            <img 
-                                class="searchImg" alt={curQuery} 
-                                src={srcPath} onDoubleClick={this.handleSelect}
-                            />
+                            <img class="searchImg" alt={curQuery} src={srcPath} onDoubleClick={this.handleSelect}/>
                         </span>
                     )
                 })
-                this.setState({ 
-                    pictures: picArray,
-                });
-            })
-            .then((error) => { console.log("ERROR:", error); })
+                this.setState({ pictures: picArray,});
+            }).then((error) => { console.log("ERROR:", error); })
         } else {
-            this.setState({ 
-            pictures: [],
-            });
+            this.setState({ pictures: [], });
         }
     }
 
@@ -200,7 +184,7 @@ class Query extends React.Component {
         let prevButton = this.renderPrevButton();
         picScreen.push(
             <div>
-                <div class="align-left">
+                <div class="filled">
                 {<br/>}
                     here are some pictures of your search: {<br/>}
                 </div>
