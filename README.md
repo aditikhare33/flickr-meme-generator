@@ -1,6 +1,6 @@
 # flickr-meme-generator
 Center for Academic Innovation Fellow Task    
-(how to run:    
+how to run:    
 download files,   
 cd into files,    
-run npm start)    
+run npm start    
