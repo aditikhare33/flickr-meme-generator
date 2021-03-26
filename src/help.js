@@ -37,6 +37,7 @@ class Help extends React.Component {
                             1. search for images {<br/>} 
                             2. double click to select an image {<br/>}
                             3. add text to your image {<br/>}
+                            (Note: drag the bottom right corner of the text box to resize it!)
                     </span>
                 </div>
             );
