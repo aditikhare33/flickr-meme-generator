@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Query from './query'
-import Image from './image'
 import Help from './help'
 
 ReactDOM.render(
   <div>
-    <h1 class="center border"> WELCOME TO THE MEME GENERATOR 3000 </h1>
     <Help />
     <Query />
-    <Image />
   </div>,
   document.getElementById('root')
 );

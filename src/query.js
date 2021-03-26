@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.css';
+import Image from './image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
@@ -14,7 +15,8 @@ class Query extends React.Component {
         this.state = {
             curQuery: "",
             pictures: [],
-            selected: <div></div>,
+            selected: NaN,
+            selectionHappened: false,
         };
     }
 
@@ -29,7 +31,7 @@ class Query extends React.Component {
             const method = "?method=flickr.photos.search";
             const apikey = "&api_key="+ FLICKR_API_KEY;
             const text = "&text=" + curQuery;
-            const tags =  "&tags=" + curQuery;
+            const tags =  "&tags=" + "memes";
             const sort = "&sort=relevance";
             const safe = "&safe_search=1"; //safe search is on
             const format = "&per_page=12&page=1&format=json&nojsoncallback=1";
@@ -77,34 +79,56 @@ class Query extends React.Component {
 
     handleSelect(e) {
         e.preventDefault();
+        let src_path = e.target.getAttribute("src");
+        console.log("src_path", src_path);
         this.setState({
-            selected: e.target,
+            selected: src_path,
+            selectionHappened: true,
         });
     }
 
+    renderHelper() {
+        const {curQuery, pictures, selected, selectionHappened} = this.state;
+        let output = [];
+
+        if (selectionHappened) {
+            output.push(
+                <div>
+                    <Image img={selected} />
+                </div>
+            );
+        } else {
+            output.push(
+                <div>
+                    <div class="button">
+                        <form onSubmit={this.handleSubmit}>
+                            <input 
+                                type="text" 
+                                name="q" 
+                                onChange={this.handleChange} 
+                                value={curQuery}
+                                placeholder="Search..."
+                            />
+                            <button class="sideButton" onSubmit={this.handleSubmit}>
+                                <FontAwesomeIcon icon={faSearch}/> 
+                            </button>
+                        </form>
+                    </div>
+                    Here are some pictures of {curQuery}: {<br/>}
+                    <div class="board">
+                        {pictures}
+                    </div>
+                </div>
+            );
+        }
+        return output;
+    }
+
     render() {
-        const {curQuery, pictures, search} = this.state;
-        console.log(this.state);
+        let output = this.renderHelper();
         return (
             <div>
-                <div class="button">
-                    <form onSubmit={this.handleSubmit}>
-                        <input 
-                            type="text" 
-                            name="q" 
-                            onChange={this.handleChange} 
-                            value={curQuery}
-                            placeholder="Search..."
-                        />
-                        <button class="searchButton" onSubmit={this.handleSubmit}>
-                            <FontAwesomeIcon icon={faSearch}/> 
-                        </button>
-                    </form>
-                </div>
-                Here are some pictures of {curQuery}: {<br/>}
-                <div class="board">
-                     {pictures}
-                </div>
+                {output}
             </div>
         );
     }

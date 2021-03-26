@@ -1,23 +1,40 @@
 body {
   margin: 0 auto;
   background-color:white;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size:25px;
-  color:rgb(42, 49, 55);
+  color:white;
+  -webkit-text-stroke: 2px black; 
   position: absolute;
   top: 5%; width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 .searchImg {
   max-width: 250px;
   max-height: 200px;
+  min-width: 250px;
   margin-left:auto;
   margin-right: auto;
   /*border: 3px solid black; */
+}
+
+.board {
+  width: 1200px;
+  height: 700px;
+  margin: auto;
+  /*box-shadow: -5px 0 olive, 0 5px olive, 5px 0 olive, 0 -5px olive; */
+  box-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white; 
+
+  /* use flexbox to create wrap around boc */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.whiteFont {
+  color: white;
 }
 
 .center {
@@ -28,12 +45,28 @@ code {
   box-shadow: -2px 0 black , 0 2px black, 2px 0 black, 0 -2px black;
 }
 
+.noBorder {
+  border: 0px;
+  box-shadow: -0px 0 black , 0 0px black, 0px 0 black, 0 -0px black;
+  font-size:18px;
+  color:rgb(42, 49, 55);
+  width: fit-content;
+  height: fit-content;
+  padding-top: 0px;
+  background-color: white;
+  text-align: center;
+}
+
+.instructions {
+  font-size: 20px;
+  text-align: left;
+}
+
 input {
   border: 0px;
 }
 
-.searchButton {
-  text-align: right;
+.sideButton {
   background-color:inherit;
   border: 0px;
   box-shadow: -2px 0 black , 0 0px white, 0px 0 white, 0 -0px white;
@@ -48,7 +81,6 @@ input {
   box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
   border-radius: 0px;
   border: 2px solid rgb(42, 49, 55);
-  text-align: center;
 }
 
 button:hover {
@@ -56,15 +88,7 @@ button:hover {
   background-color:lightgray;
 }
 
-.board {
-  width: 800px;
-  height: 800px;
-  margin: auto;
-  /*box-shadow: -5px 0 olive, 0 5px olive, 5px 0 olive, 0 -5px olive; */
-  box-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white; 
-
-  /* use flexbox to create wrap around boc */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.searchImg:hover {
+  transition-duration: 0.4s;
+  
 }
