@@ -6,4 +6,4 @@ cd flickr-meme-generator
 npm start    
 
 more info:  
-This program queries flickr's public photo api and gives users the option to create their own memes.  
+This program queries flickr's public photo search api and gives users the option to create their own memes with those pictures.  
