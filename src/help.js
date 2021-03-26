@@ -26,25 +26,26 @@ class Help extends React.Component {
         if (needHelp) {
             helpMenu.push(
                 <div class="border">
-                    HOW TO USE THE MEME GENERATOR 3000
+                    <span class="filled">
+                        how to use the meme generator 3000
+                    </span>
                     <span class="instructions">
                         <button onClick={this.handleHelp} class="noBorder">
                          <FontAwesomeIcon icon={faTimesCircle}/>
                         </button>
                         {<br/>} 
-                            1. SEARCH FOR IMAGES {<br/>} 
-                            2. DOUBLE CLICK TO SELECT AN IMAGE {<br/>}
-                            3. ADD TEXT TO THE TEXT BOX {<br/>}
+                            1. search for images {<br/>} 
+                            2. double click to select an image {<br/>}
+                            3. add text to your image {<br/>}
                     </span>
                 </div>
             );
         } else {
             helpMenu.push(
-                <span class="center">
+                <span>
                     <button onClick={this.handleHelp} class="button">
-                         HOW TO USE THE MEME GENERATOR 3000
-                </button>
-
+                        how to use the meme generator 3000
+                    </button>
                 </span>
             );
         }

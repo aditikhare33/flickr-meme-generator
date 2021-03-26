@@ -30,22 +30,26 @@ class Query extends React.Component {
 
     handlePaginationPlus() {
         let tempCurPage = this.state.curPage;
+
+        // so don't have to rely on setState updating quick enough and so don't have to return a explicit promist
+        setTimeout(this.fetchPics, 0, this.state.curPage + 1); 
         tempCurPage++;
         this.setState({
             curPage: tempCurPage,
         });
-        this.fetchPics(this.state.curPage);
     }
 
     handlePaginationMinus() {
         let tempCurPage = this.state.curPage;
+
+        // so don't have to rely on setState updating quick enough and so don't have to return a explicit promist
+        setTimeout(this.fetchPics, 0, this.state.curPage - 1);
         if (tempCurPage > 1) {
             tempCurPage--;
         }
         this.setState({
             curPage: tempCurPage,
         });
-        this.fetchPics(this.state.curPage);
     }
 
     // queries flickr api according to page number and current query
@@ -119,6 +123,7 @@ class Query extends React.Component {
         e.preventDefault();
         this.setState({
             curQuery: e.target.value,
+            search: "",
         });
     }
 
@@ -160,8 +165,8 @@ class Query extends React.Component {
 
     // separate function to handle logic of what to render when, to reduce clutter in actual render function
     // essentially: if no image selected, show search page, otherwise show selected image and text box
-    renderHelper(pageNum) {
-        const {curQuery, pictures, selected, selectionHappened} = this.state;
+    renderHelper() {
+        const {curQuery, pictures, selected, selectionHappened, search, curPage} = this.state;
         let output = [];
 
         if (selectionHappened) {
@@ -185,8 +190,8 @@ class Query extends React.Component {
                                 type="text" 
                                 name="q" 
                                 onChange={this.handleChange} 
-                                value={curQuery}
-                                placeholder="Search For Something Else..."
+                                value={curQuery} 
+                                placeholder="type your search here"
                             />
                             <button class="sideButton" onSubmit={this.handleSubmit}>
                                 <FontAwesomeIcon icon={faSearch}/> 
@@ -196,29 +201,34 @@ class Query extends React.Component {
                 </div>
             );
             if (pictures.length === 0) {
+                let str =  "nothing to see here... yet";
+                if (search === "" || curQuery === "") {
+                   str = "your searches will appear here";
+                } 
                 output.push(
                     <div class = "centerVertical">
-                        Nothing To See Here... Yet {<br/>} 
-                        <img src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves" />
+                        {str}{<br/>} 
+                        <img src="http://i.stack.imgur.com/SBv4T.gif" alt="waiting......." />
                     </div>
-                )
+                );
+                    
             } else {
                 let previous_button = [];
-                console.log("pageNum", pageNum);
-                if (true) {
+                console.log(curPage);
+                if (curPage > 1) {
                     previous_button.push(
-                        <div>
+                        <span>
                             <button onClick={this.handlePaginationMinus} class="button bottom">
-                                Go to previous page
+                                go to previous page
                             </button>
-                        </div>
+                        </span>
                     );
                 }
                 output.push(
                     <div>
                         <div class="align-left">
                         {<br/>}
-                            Here are some pictures of your search: {<br/>}
+                            here are some pictures of your search: {<br/>}
                         </div>
                         <div class="board">
                             {pictures}
@@ -226,7 +236,7 @@ class Query extends React.Component {
                         {<br/>}
                         {previous_button}
                         <button onClick={this.handlePaginationPlus} class="button bottom"> 
-                            Go to next page
+                            go to next page
                         </button>
                     </div>
                 );
@@ -238,7 +248,7 @@ class Query extends React.Component {
     // render 
     render() {
         console.log(this.state);
-        let output = this.renderHelper(this.state.pageNum);
+        let output = this.renderHelper();
         return (
             <div>
                 {output}
