@@ -35,7 +35,6 @@ class Help extends React.Component {
                             1. SEARCH FOR IMAGES {<br/>} 
                             2. DOUBLE CLICK TO SELECT AN IMAGE {<br/>}
                             3. ADD TEXT TO THE TEXT BOX {<br/>}
-                            NOTE: you can move the text around by clicking and grabbing it!
                     </span>
                 </div>
             );

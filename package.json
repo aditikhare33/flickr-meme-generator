@@ -11,6 +11,8 @@
     "@testing-library/user-event": "^12.8.3",
     "flickr-sdk": "^3.10.0",
     "react": "^17.0.2",
+    "react-dnd": "^14.0.2",
+    "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.2",
     "react-moveable": "^0.27.4",
     "react-scripts": "4.0.3",

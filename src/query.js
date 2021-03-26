@@ -14,6 +14,9 @@ class Query extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.fetchPics = this.fetchPics.bind(this);
         this.handleDeselect = this.handleDeselect.bind(this);
+        this.handlePaginationPlus = this.handlePaginationPlus.bind(this);
+        this.handlePaginationMinus = this.handlePaginationMinus.bind(this);
+        this.renderHelper = this.renderHelper.bind(this);
 
         this.state = {
             curQuery: "",
@@ -21,7 +24,28 @@ class Query extends React.Component {
             pictures: [],
             selected: NaN,
             selectionHappened: false,
+            curPage: 1,
         };
+    }
+
+    handlePaginationPlus() {
+        let tempCurPage = this.state.curPage;
+        tempCurPage++;
+        this.setState({
+            curPage: tempCurPage,
+        });
+        this.fetchPics(this.state.curPage);
+    }
+
+    handlePaginationMinus() {
+        let tempCurPage = this.state.curPage;
+        if (tempCurPage > 1) {
+            tempCurPage--;
+        }
+        this.setState({
+            curPage: tempCurPage,
+        });
+        this.fetchPics(this.state.curPage);
     }
 
     // queries flickr api according to page number and current query
@@ -136,17 +160,18 @@ class Query extends React.Component {
 
     // separate function to handle logic of what to render when, to reduce clutter in actual render function
     // essentially: if no image selected, show search page, otherwise show selected image and text box
-    renderHelper() {
-        const {curQuery, pictures, selected, selectionHappened, search} = this.state;
+    renderHelper(pageNum) {
+        const {curQuery, pictures, selected, selectionHappened} = this.state;
         let output = [];
 
         if (selectionHappened) {
             output.push(
                 <div>
-                    <Image img={selected} />
-                    <button onClick={this.handleDeselect}>
+                    {<br/>}
+                    <button onClick={this.handleDeselect} class="button">
                         Go back to Search Page?
                     </button>
+                    <Image img={selected} />
                 </div>
             );
         } else {
@@ -156,12 +181,12 @@ class Query extends React.Component {
                     <div class="button">
                         <form onSubmit={this.handleSubmit}>
                             <input 
-                                class="input"
+                                class="search"
                                 type="text" 
                                 name="q" 
                                 onChange={this.handleChange} 
                                 value={curQuery}
-                                placeholder="Search For Something..."
+                                placeholder="Search For Something Else..."
                             />
                             <button class="sideButton" onSubmit={this.handleSubmit}>
                                 <FontAwesomeIcon icon={faSearch}/> 
@@ -178,6 +203,17 @@ class Query extends React.Component {
                     </div>
                 )
             } else {
+                let previous_button = [];
+                console.log("pageNum", pageNum);
+                if (true) {
+                    previous_button.push(
+                        <div>
+                            <button onClick={this.handlePaginationMinus} class="button bottom">
+                                Go to previous page
+                            </button>
+                        </div>
+                    );
+                }
                 output.push(
                     <div>
                         <div class="align-left">
@@ -187,18 +223,22 @@ class Query extends React.Component {
                         <div class="board">
                             {pictures}
                         </div>
+                        {<br/>}
+                        {previous_button}
+                        <button onClick={this.handlePaginationPlus} class="button bottom"> 
+                            Go to next page
+                        </button>
                     </div>
                 );
             }
         }
-        
         return output;
     }
 
     // render 
     render() {
         console.log(this.state);
-        let output = this.renderHelper();
+        let output = this.renderHelper(this.state.pageNum);
         return (
             <div>
                 {output}
