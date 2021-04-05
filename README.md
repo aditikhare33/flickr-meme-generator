@@ -10,5 +10,5 @@ This program queries flickr's public photo search api and gives users the option
 
 usage pics:     
 ![GitHub Logo](/readme_pics/openingPage.png)
-![GitHub Logo](/readme_pics/search.png)
+![GitHub Logo](/readme_pics/search.png) 
 ![GitHub Logo](/readme_pics/image.png)
