@@ -1,5 +1,4 @@
-# flickr-meme-generator
-Center for Academic Innovation Fellow Task    
+# flickr-meme-generator   
 how to run:    
 git clone https://github.com/aditikhare33/flickr-meme-generator.git     
 cd flickr-meme-generator          
